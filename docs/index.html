@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Одна сумма — две категории · Методика социального благополучия семьи</title>
+<meta name="description" content="Интерактивный разбор Методики определения социального благополучия семьи (приказ № 267): 85 мест, где одни и те же сведения о семье дают два результата, ни одного или текст требует уточнения.">
+<meta property="og:title" content="Одна сумма — две категории">
+<meta property="og:description" content="85 мест в Методике социального благополучия семьи, где текст нужно уточнить. Проверяется по «Әділет».">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@500;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap top__row">
+    <span class="top__act">Методика определения социального благополучия семьи (лица) · приказ № 267, ред. № 247</span>
+    <nav class="top__nav" aria-label="Разделы">
+      <a href="#scale">Шкала</a>
+      <a href="#examples">Примеры</a>
+      <a href="#map">Карта</a>
+      <a href="https://github.com/rifmj/kz-family-welfare-review">Репозиторий</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap" id="scale" aria-labelledby="hero-title">
+    <p class="eyebrow">Пункт 13 · категории семей</p>
+    <h1 id="hero-title">Одна сумма — <span class="hl">две категории</span></h1>
+    <p class="lede">По этой Методике Цифровая карта семьи относит семьи к категориям от A до E. Категория определяется суммой баллов. Передвиньте отметку и посмотрите, в какую категорию попадает сумма.</p>
+
+    <div class="ruler" id="ruler">
+      <div class="ruler__readout" aria-live="polite">
+        <div class="ruler__sum"><span class="ruler__label">Сумма баллов</span><output id="sum-out" class="ruler__num">−30</output></div>
+        <div class="ruler__verdict" id="verdict"></div>
+      </div>
+      <div class="ruler__controls">
+        <label class="visually-hidden" for="sum-range">Сумма баллов</label>
+        <input id="sum-range" type="range" min="-700" max="2100" step="10" value="-30">
+        <div class="ruler__jumps" role="group" aria-label="Перейти к сумме">
+          <button type="button" data-sum="-460">−460</button>
+          <button type="button" data-sum="-30">−30</button>
+          <button type="button" data-sum="730">730</button>
+          <button type="button" data-sum="1800">1 800</button>
+          <button type="button" data-step="-10" aria-label="Минус 10 баллов">−10</button>
+          <button type="button" data-step="10" aria-label="Плюс 10 баллов">+10</button>
+        </div>
+      </div>
+      <div class="loupe" id="loupe" aria-hidden="true"></div>
+      <p class="ruler__note">Все ставки Методики кратны десяти, поэтому и сумма всегда кратна десяти. Обе крайние точки диапазона здесь считаются включёнными; для −30 и −460 это не важно: эти суммы попадают в две категории при любом прочтении слова «до».</p>
+      <ol class="cats" id="cats"></ol>
+    </div>
+  </section>
+
+  <section class="examples wrap" id="examples" aria-labelledby="ex-title">
+    <h2 id="ex-title">Ещё два места, которые проверяются за минуту</h2>
+    <div class="ex-grid">
+      <article class="ex" aria-labelledby="ex1-title">
+        <p class="eyebrow">Пункт 11, подпункт 1 · площадь жилища</p>
+        <h3 id="ex1-title">Русский и казахский тексты описывают разные условия</h3>
+        <label class="ex__ctl" for="area">Площадь единственного жилища на одного члена семьи: <output id="area-out">18</output> м²</label>
+        <input id="area" type="range" min="10" max="26" step="1" value="18">
+        <div class="cmp" id="area-cmp"></div>
+      </article>
+
+      <article class="ex" aria-labelledby="ex2-title">
+        <p class="eyebrow">Пункт 11, подпункт 1 · число жилищ</p>
+        <h3 id="ex2-title">Три единицы жилища — 100 или 400 баллов</h3>
+        <div class="ex__ctl ex__stepper">
+          <span>Единиц жилища:</span>
+          <button type="button" id="units-dec" aria-label="Меньше">−</button>
+          <output id="units-out">3</output>
+          <button type="button" id="units-inc" aria-label="Больше">+</button>
+        </div>
+        <fieldset class="toggle">
+          <legend>Слово «до» в «от трех до шести»</legend>
+          <label><input type="radio" name="upto" value="incl" checked> включает границу</label>
+          <label><input type="radio" name="upto" value="excl"> не включает</label>
+        </fieldset>
+        <ul class="rows" id="units-rows"></ul>
+        <p class="ex__result" id="units-result" aria-live="polite"></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="map wrap" id="map" aria-labelledby="map-title">
+    <div class="map__head">
+      <h2 id="map-title">85 мест, где Методике нужно уточнение</h2>
+      <p>Каждая отметка — позиция перечня, приложенного к обращению в Минтруд. Строки — пункты и критерии Методики. Нажмите на отметку, чтобы прочитать позицию.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Фильтр по виду">
+      <div class="chips" id="chips"></div>
+      <label class="search"><span class="visually-hidden">Поиск по тексту</span><input id="q" type="search" placeholder="Поиск: «жилищ», «кем дегенде», «−30»…"></label>
+    </div>
+    <div class="map__body">
+      <div class="sheet" id="sheet"></div>
+      <aside class="panel" id="panel" aria-live="polite" tabindex="-1">
+        <div class="panel__empty" id="panel-empty">
+          <p class="panel__hint">Выберите отметку на карте.</p>
+          <p>Цвет показывает вид проблемы. «Два результата» и «нет результата» — места, где одни и те же сведения о семье дают два балла, ни одного или две категории.</p>
+        </div>
+        <div class="panel__body" id="panel-body" hidden></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="about wrap" aria-labelledby="about-title">
+    <h2 id="about-title">Что это и чего здесь нет</h2>
+    <div class="about__cols">
+      <div>
+        <p>Это разбор опубликованного текста Методики определения социального благополучия семьи (лица): приказ от 29.06.2023 № 267 в редакции приказа от 17.06.2026 № 247. Тексты сверены с «Әділет» по состоянию на 17.10.2026. По пункту 1 Методики сведения Цифровой карты семьи «являются основанием для определения потенциально нуждающихся лиц (семей) в мерах социальной защиты».</p>
+        <p>Как фактически считает Цифровая карта семьи, как это сказывается на выплатах и сколько семей затронуто, здесь не исследовалось. Все примеры условные. Это инженерный разбор текста, а не юридическое заключение.</p>
+      </div>
+      <div>
+        <p>Первые замечания нашлись при построении исполняемой модели Методики в <a href="https://arxo.io">Arxo</a>: там, где одной семье подходят две строки или ни одной, модель не выбирает за текст, а останавливается. Дальше русский и казахский тексты проверялись построчно с помощью ИИ. Чтобы проверить любую позицию, достаточно текста акта.</p>
+        <ul class="links">
+          <li><a href="https://adilet.zan.kz/rus/docs/V2300032923">Методика на «Әділет» — русский текст</a></li>
+          <li><a href="https://adilet.zan.kz/kaz/docs/V2300032923">Методика на «Әділет» — казахский текст</a></li>
+          <li><a href="https://github.com/rifmj/kz-family-welfare-review/blob/main/obrashchenie.pdf">Обращение в Минтруд (PDF)</a></li>
+          <li><a href="https://github.com/rifmj/kz-family-welfare-review/blob/main/prilozhenie.pdf">Перечень 85 позиций (PDF)</a></li>
+          <li><a href="https://github.com/rifmj/kz-family-welfare-review">Репозиторий: расчёты, копии источников, журнал уточнений</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="fine">Нашли акт, который закрывает позицию, или неточность в перечне — откройте <a href="https://github.com/rifmj/kz-family-welfare-review/issues">issue</a> с номером позиции. Тексты — CC BY 4.0.</p>
+  </section>
+</main>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

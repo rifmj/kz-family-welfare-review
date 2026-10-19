@@ -6,6 +6,8 @@ of 29 June 2023, as amended by Order No. 247 of 17 June 2026). The Digital Famil
 methodology to sort families into categories A to E. Texts checked against the official Adilet
 publication as of 17 October 2026.
 
+Interactive map (in Russian): https://rifmj.github.io/kz-family-welfare-review/
+
 Three examples:
 
 - **Clause 13.** Category C is "from −30 to 729 points", category D is "from −460 to −29 points". A
