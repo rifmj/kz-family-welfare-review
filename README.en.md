@@ -20,10 +20,12 @@ Three examples:
 Under clause 1, the Digital Family Card data "serve as the basis for identifying persons (families)
 potentially in need of social protection measures".
 
-The first points were found while building an executable model of the methodology at
-[Arxo](https://arxo.io): where two rows match one family's facts, or none does, the model stops instead
-of choosing. The rest came from an AI-assisted line-by-line reading of the Russian and Kazakh texts.
-Every point cites its clause and can be checked against the published act without Arxo.
+Author: Rifat Jumagulov, a citizen of Kazakhstan and the founder and developer of
+[Arxo](https://arxo.io). 49 of the 85 points were found while building an executable model of the
+methodology in Arxo or confirmed by running it: where two rows match one family's facts, or none does,
+the model stops instead of choosing. The rest come from a line-by-line reading of the Russian and Kazakh
+texts with the help of language models. The author checked every quotation and figure against the
+official Adilet text; every point cites its clause and can be checked without Arxo or AI.
 
 This is an engineering review of published text and hypothetical households. It makes no findings about
 the system's actual calculations, benefit payments or the number of affected households.
