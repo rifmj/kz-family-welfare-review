@@ -130,12 +130,12 @@
   ];
   var famBy = {}; FAM.forEach(function (f) { famBy[f.k] = f; });
   var active = {}; FAM.forEach(function (f) { active[f.k] = true; });
-  var query = "";
+  var query = "", showLow = true;
 
   $("chips").innerHTML = FAM.map(function (f) {
     var n = D.items.filter(function (i) { return i.family === f.k; }).length;
     return '<button type="button" class="chip" aria-pressed="true" data-f="' + f.k + '" title="' + f.hint + '"><i style="background:var(--f-' + f.k + ')"></i>' + f.name + " <b>" + n + "</b></button>";
-  }).join("");
+  }).join("") + '<button type="button" class="chip chip--low" aria-pressed="true" data-low="1" title="Редакционные и второстепенные замечания — приложение 2"><i></i>Приложение 2 · редакционные <b>20</b></button>';
 
   var byKey = {};
   D.items.forEach(function (i) { (byKey[i.key] = byKey[i.key] || []).push(i); });
@@ -144,7 +144,7 @@
 
   function marks(key) {
     return '<div class="marks">' + (byKey[key] || []).map(function (i) {
-      return '<button type="button" class="mk" data-n="' + i.n + '" data-f="' + i.family + '" aria-label="Позиция ' + i.n + ": " + famBy[i.family].name + '">' + i.n + "</button>";
+      return '<button type="button" class="mk' + (i.part === 2 ? " low" : "") + '" data-n="' + i.id + '" data-f="' + i.family + '" aria-label="' + (i.part === 2 ? "Замечание " : "Позиция ") + i.id + ": " + famBy[i.family].name + '">' + i.id + "</button>";
     }).join("") + "</div>";
   }
   function row(no, name, key) {
@@ -163,15 +163,15 @@
   var panel = $("panel"), body = $("panel-body"), empty = $("panel-empty");
   var visible = function () {
     return D.items.filter(function (i) {
-      return active[i.family] && (!query || (i.text + " " + i.loc).toLowerCase().indexOf(query) >= 0);
-    }).map(function (i) { return i.n; });
+      return active[i.family] && (i.part === 1 || showLow) && (!query || (i.text + " " + i.loc).toLowerCase().indexOf(query) >= 0);
+    }).map(function (i) { return i.id; });
   };
   function applyFilter() {
     var vis = visible();
-    document.querySelectorAll(".mk").forEach(function (b) { b.classList.toggle("dim", vis.indexOf(+b.dataset.n) < 0); });
+    document.querySelectorAll(".mk").forEach(function (b) { b.classList.toggle("dim", vis.indexOf(b.dataset.n) < 0); });
   }
   function select(n, focus) {
-    var i = D.items[n - 1];
+    var i = D.items.filter(function (x) { return x.id === n; })[0];
     if (!i) return;
     document.querySelectorAll(".mk.sel").forEach(function (b) { b.classList.remove("sel"); });
     var btn = document.querySelector('.mk[data-n="' + n + '"]');
@@ -188,7 +188,7 @@
     var vis = visible(), k = vis.indexOf(n);
     body.innerHTML =
       '<button type="button" class="panel__close" id="panel-close" aria-label="Закрыть">×</button>' +
-      '<div class="panel__no">Позиция ' + n + " из 85</div>" +
+      '<div class="panel__no">' + (i.part === 2 ? "Замечание " + n + " · приложение 2, редакционное" : "Позиция " + n + " из 65 · приложение 1") + "</div>" +
       '<div class="panel__fam"><i style="background:var(--f-' + i.family + ')"></i>' + f.name + "</div>" +
       '<p class="panel__loc">' + esc(i.loc) + "</p>" +
       '<div class="panel__text">' + md(i.text) + "</div>" + src +
@@ -199,17 +199,18 @@
     $("prev").onclick = function () { if (k > 0) select(vis[k - 1], true); };
     $("next").onclick = function () { if (k >= 0 && k < vis.length - 1) select(vis[k + 1], true); };
     $("panel-close").onclick = function () { panel.classList.remove("open"); if (btn) btn.focus(); };
-    if (history.replaceState) history.replaceState(null, "", "#n" + n);
+    if (history.replaceState) history.replaceState(null, "", "#" + (i.part === 2 ? "r" + n.replace("Р-", "") : "n" + n));
     if (focus) panel.focus({ preventScroll: true });
   }
 
   $("sheet").addEventListener("click", function (e) {
     var b = e.target.closest(".mk");
-    if (b) select(+b.dataset.n, window.matchMedia("(max-width: 900px)").matches);
+    if (b) select(b.dataset.n, window.matchMedia("(max-width: 900px)").matches);
   });
   $("chips").addEventListener("click", function (e) {
     var b = e.target.closest(".chip");
     if (!b) return;
+    if (b.dataset.low) { showLow = !showLow; b.setAttribute("aria-pressed", String(showLow)); applyFilter(); return; }
     active[b.dataset.f] = !active[b.dataset.f];
     b.setAttribute("aria-pressed", String(active[b.dataset.f]));
     applyFilter();
@@ -217,6 +218,6 @@
   $("q").addEventListener("input", function (e) { query = e.target.value.trim().toLowerCase(); applyFilter(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") panel.classList.remove("open"); });
 
-  var m = /^#n(\d+)$/.exec(location.hash);
-  if (m) { select(+m[1]); document.getElementById("map").scrollIntoView(); }
+  var m = /^#([nr])(\d+)$/.exec(location.hash);
+  if (m) { select(m[1] === "r" ? "Р-" + m[2] : m[2]); document.getElementById("map").scrollIntoView(); }
 })();

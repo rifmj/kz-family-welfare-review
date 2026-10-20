@@ -1,7 +1,7 @@
 # Kazakhstan's family welfare methodology: an open review
 
 A citizen's submission to Kazakhstan's Ministry of Labour and Social Protection, with **85 points that
-need clarification** in the Methodology for Determining the Social Well-Being of a Family (Order No. 267
+need clarification** (65 questions that affect the calculation, plus 20 drafting and minor remarks in a separate annex) in the Methodology for Determining the Social Well-Being of a Family (Order No. 267
 of 29 June 2023, as amended by Order No. 247 of 17 June 2026). The Digital Family Card uses this
 methodology to sort families into categories A to E. Texts checked against the official Adilet
 publication as of 17 October 2026.
@@ -31,5 +31,5 @@ This is an engineering review of published text and hypothetical households. It 
 the system's actual calculations, benefit payments or the number of affected households.
 
 Materials are in Russian: [obrashchenie.md](obrashchenie.md) (the submission),
-[prilozhenie.md](prilozhenie.md) (the 85 points), [primery.md](primery.md) (worked examples),
+[prilozhenie.md](prilozhenie.md) (annex 1, 65 questions), [prilozhenie-2.md](prilozhenie-2.md) (annex 2, 20 drafting remarks), [primery.md](primery.md) (worked examples),
 [PROVERKA.md](PROVERKA.md) (a five-minute check). Licence: [CC BY 4.0](LICENSE).
